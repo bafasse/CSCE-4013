@@ -1,21 +1,36 @@
-def encrypt(k, p):
-    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    cipher_alphabet = []
-    for i in p:
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+def encrypt(key, plain_text):
+    cipher = []
+    for i in plain_text:
         if i.strip() and i in alphabet:
-            cipher_alphabet.append(alphabet[(alphabet.index(i) + int(k)) % 26])
+            cipher.append(alphabet[(alphabet.index(i) + int(key)) % 26])
         else:
-            cipher_alphabet.append(i)
-    cipher_text = ''.join(cipher_alphabet)
+            cipher.append(i)
+    cipher_text = ''.join(cipher)
     return cipher_text
 
-    
+
+def decrypt(key, cipher_text):
+    plain_text = []
+    for i in cipher_text:
+        if i.strip() and i in plain_text:
+            plain_text.append(alphabet[(alphabet.index(i) - int(key)) % 26])
+        else:
+            plain_text.append(i)
+    text = ''.join(plain_text)
+    return text
+
+
+
 
 key = input("Input a number between [1,25]: ")
 while int(key) < 1 or int(key) > 25:
     print("You have entered a number outside the range. Try again")
     offset = input("Input a number between [0,25]: ")
 
-plaintext = input("Input a word to enter at the beginning of the alphabet: ")
-plaintext = plaintext.upper()
-print(encrypt(key, plaintext))
+text = input("Input a word to enter at the beginning of the alphabet: ")
+text = text.upper()
+
+print(encrypt(key, text))
+print(decrypt(key, text))
