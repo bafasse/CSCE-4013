@@ -1,19 +1,21 @@
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def brute_force():
-    message = "KRZ DUH BRX"
+    user_message = input('Enter an encrypted word or sentance: ')
+    user_message = user_message.upper()
 
     for key in range(len(alphabet)):
-        plain_text = ""
-        if symbol in alphabet:
-            num = alphabet.find(symbol)
-            num -= key
+        plain_text = ''
+        for symbol in user_message:
+            if symbol in alphabet:
+                num = alphabet.find(symbol)
+                num -= key
 
-            if num < 0:
-                num += len(alphabet)
+                if num < 0:
+                    num += len(alphabet)
 
-            translated += alphabet[num]
-        else:
-            plain_text += symbol
+                plain_text = plain_text + alphabet[num]
+            else:
+                plain_text = plain_text + symbol
 
-    print('Key #%s: %s' % (key, translated))
+        print('Key #%s: %s' % (key, plain_text))
