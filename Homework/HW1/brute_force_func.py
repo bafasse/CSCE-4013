@@ -1,3 +1,4 @@
+import encrypt_decrypt
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def brute_force():
@@ -15,7 +16,11 @@ def brute_force():
                     num += len(alphabet)
 
                 plain_text = plain_text + alphabet[num]
+
             else:
                 plain_text = plain_text + symbol
+
+        # if plain_text == encrypt_decrypt.decrypt(key, user_message):
+        #             right_key = key
 
         print('Key #%s: %s' % (key, plain_text))

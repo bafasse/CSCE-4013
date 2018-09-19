@@ -1,6 +1,8 @@
 import encrypt_decrypt
 import brute_force_func
 
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
 key = input("Enter a number between [1,25]: ")
 while int(key) < 1 or int(key) > 25:
     print("You have entered a number outside the range. Try again")
