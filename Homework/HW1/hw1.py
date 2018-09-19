@@ -12,8 +12,8 @@ text = input("Enter a word to have it encrypted: ")
 text = text.upper()
 
 print("----- Encryption/Decryption -----")
-print(encrypt_decrypt.encrypt(key, text))
-print(encrypt_decrypt.decrypt(key, text))
+print("Encypted Message : "  + encrypt_decrypt.encrypt(key, text))
+print("Decrypted Message: " + encrypt_decrypt.decrypt(key, text))
 
 print("----- Brute Force ---------------")
 brute_force_func.brute_force()
