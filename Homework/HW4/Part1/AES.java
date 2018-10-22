@@ -3,9 +3,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
-
+import java.util.Scanner;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.lang.Object;
+import java.io.*;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.lang.IllegalArgumentException;
+
 
 public class AES {
 
@@ -58,21 +64,50 @@ public class AES {
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception, IOException, IllegalArgumentException {
 
         final String secretKey = "RideTheLightning";
+        // String originalString = "Metallica";
 
-        String originalString = "Metallica";
+        String alice;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your message: ");
+        alice = sc.nextLine();
 
-        String encryptedString = AES.encrypt(originalString, secretKey) ;
+        // String encryptedString = AES.encrypt(alice, secretKey) ;
+        String enc = encrypt(alice, secretKey);
 
-        String decryptedString = AES.decrypt(encryptedString, secretKey) ;
+        FileOutputStream out = new FileOutputStream("mactext.txt");
+        byte[] strToBytes = enc.getBytes();
+        out.write(strToBytes);
+        out.close();
 
-        System.out.println(originalString);
 
-        System.out.println(encryptedString);
+        String data = "";
+         try { 
+             data = new String(Files.readAllBytes(Paths.get("mactext.txt"))); 
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        } 
+        
+        // System.out.println("The encrypted message: " + data); 
+        String dec = decrypt(data,secretKey);
+        // System.out.println("The decrypted message: " + dec);
 
-        System.out.println(decryptedString);
+        if (alice.equals(dec)) {
+            System.out.println("The encrypted message: " + data); 
+            System.out.println("The decrypted message: " + dec);
+            System.out.println("True");
+        }
+
+        else {
+            System.out.println("False");
+        }
+
+
+        // System.out.println(alice);
+        // System.out.println(encryptedString);
+        // System.out.println(decryptedString);
 
     }
 }
